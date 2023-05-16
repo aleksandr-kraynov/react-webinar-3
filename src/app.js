@@ -22,11 +22,11 @@ function App({store}) {
       <div className='App-center'>
         <div className='List'>{
           list.map(item =>
-            <div key={item.id} className='List-item'>
+            <div key={item.code} className='List-item'>
               <div className={'Item' + (item.selected ? ' Item_selected' : '')}
                    onClick={() => store.selectItem(item.code)}>
                 <div className='Item-code'>{item.code}</div>
-                <div className='Item-title'>{item.title} {endingValue(item.count)}</div>
+                <div className='Item-title'>{item.title} {item.count != 0 ? `| Выделяли ` + endingValue(item.count) : ''}</div>
                 <div className='Item-actions'>
                   <button onClick={() => store.deleteItem(item.code)}>
                     Удалить
