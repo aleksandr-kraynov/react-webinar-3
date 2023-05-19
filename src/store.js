@@ -6,7 +6,7 @@ import {generateCode} from "./utils";
 class Store {
   constructor(initState = {}) {
     this.state = initState;
-    this.listeners = []; // Слушатели изменений состояния
+    this.listeners = []; // Слушатели изменений состояния   
   }
 
   /**
@@ -58,7 +58,7 @@ class Store {
     this.setState({
       ...this.state,
       // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter(item => item.code !== code)
+      orders: this.state.orders.filter(item => item.code !== code)
     })
   };
 
@@ -82,6 +82,29 @@ class Store {
         return item.selected ? {...item, selected: false} : item;
       })
     })
+  }
+
+  addToOrder(item) {     
+    if (!this.state.orders.includes(item)) 
+    {
+      this.setState({
+        ...this.state,
+        orders: [...this.state.orders, item]      
+      })
+      item.total = 1;
+    }       
+    else  
+    {
+      this.setState({
+        ...this.state,
+        orders: this.state.orders.filter(value => {
+          if (value === item) {
+            return {...value, total: value.total++}           
+          } 
+          return value;
+        })
+      })      
+    }  
   }
 }
 

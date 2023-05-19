@@ -3,3 +3,8 @@
   justify-content: flex-end;
   padding: 20px;
 }
+
+.Controls-cart {
+  white-space: nowrap;
+  padding: 0 24px;
+}

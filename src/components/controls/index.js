@@ -1,21 +1,28 @@
-import React from "react";
+import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
+import {plural, totalSumCart} from "../../utils";
 
-function Controls({onAdd}){
+function Controls({ orders, setActive }) {  
   return (
     <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+      <div className='Controls-cart'>          
+        В корзине: <strong>{orders ? `${orders.length} ${plural(orders.length, {one: 'товар', few: 'товара', many: 'товаров'})}` : ''} / {totalSumCart(orders)} ₽</strong>        
+      </div>      
+      <button onClick={() => setActive(true)}>Перейти</button>
     </div>
-  )
+  );
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func
+  orders: PropTypes.arrayOf(PropTypes.shape({
+    code: PropTypes.number
+  })).isRequired, 
+  setActive: PropTypes.func
 };
 
 Controls.defaultProps = {
-  onAdd: () => {}
-}
+  setActive: () => {},
+};
 
 export default React.memo(Controls);
