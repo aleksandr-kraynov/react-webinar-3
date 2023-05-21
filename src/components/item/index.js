@@ -6,7 +6,7 @@ function Item(props){
   
   const callbacks = {    
     onAddToOrder: () => {
-      props.onAddToOrder(props.item);
+      props.onAddToOrder(props.item.code);
     }
   }
 
@@ -31,9 +31,8 @@ function Item(props){
 Item.propTypes = {
   item: PropTypes.shape({
     code: PropTypes.number,
-    title: PropTypes.string,
-    selected: PropTypes.bool,
-    count: PropTypes.number
+    title: PropTypes.string,      
+    price: PropTypes.number
   }).isRequired,
   onAddToOrder: PropTypes.func,  
 };

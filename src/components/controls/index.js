@@ -1,15 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './style.css';
-import {plural, totalSumCart} from "../../utils";
+import {plural} from "../../utils";
 
-function Controls({ orders, setActive }) {  
+function Controls({ orders, totalSumCart, setActive }) {  
   return (
     <div className='Controls'>
       <div className='Controls-cart'>          
-        В корзине: <strong>{orders ? `${orders.length} ${plural(orders.length, {one: 'товар', few: 'товара', many: 'товаров'})}` : ''} / {totalSumCart(orders)} ₽</strong>        
-      </div>      
-      <button onClick={() => setActive(true)}>Перейти</button>
+        В корзине: <strong>{orders.length ? `${orders.length} ${plural(orders.length, {one: 'товар', few: 'товара', many: 'товаров'})} / ${totalSumCart}  ₽` : 'пусто'}</strong>        
+      </div>  
+      <div className='Controls-button'>  
+        <button onClick={() => setActive(true)}>Перейти</button>
+      </div>
     </div>
   );
 }
@@ -18,6 +20,7 @@ Controls.propTypes = {
   orders: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
   })).isRequired, 
+  totalSumCart: PropTypes.number,
   setActive: PropTypes.func
 };
 

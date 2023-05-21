@@ -2,11 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import './style.css';
 import {cn as bem} from '@bem-react/classname';
-import { totalSumCart } from "../../utils";
 import Head from "../head";
 
 
-function Cart({orders, onDeleteItem, setActive}){
+function Cart({orders, totalSumCart, onDeleteItem, setActive}){
 
   const cn = bem('Cart');
 
@@ -40,7 +39,7 @@ function Cart({orders, onDeleteItem, setActive}){
         ): (<div className={cn('empty')}>Корзина пуста</div>)}
       </div>
       <div className={cn('total')}>
-        <strong>{orders.length ? (<div><span>Итого</span> {totalSumCart(orders)} ₽</div>) : ''}</strong>
+        <strong>{orders.length ? (<div><span>Итого</span> {totalSumCart + ' ₽'} </div>) : ''}</strong>
       </div>
     </div>
   )
@@ -50,6 +49,7 @@ Cart.propTypes = {
   orders: PropTypes.arrayOf(PropTypes.shape({
     code: PropTypes.number
   })).isRequired,
+  totalSumCart: PropTypes.number,
   onDeleteItem: PropTypes.func,
   setActive: PropTypes.func
 };
