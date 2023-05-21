@@ -85,21 +85,20 @@ class Store {
   }
 
   addToOrder(item) {     
-    if (!this.state.orders.includes(item)) 
+    if (!this.state.orders.some(el => el.code === item.code))
     {
       this.setState({
         ...this.state,
-        orders: [...this.state.orders, item]      
-      })
-      item.total = 1;
+        orders: [...this.state.orders, {code: item.code, title: item.title, price: item.price, total: 1}]      
+      })       
     }       
     else  
     {
       this.setState({
         ...this.state,
         orders: this.state.orders.filter(value => {
-          if (value === item) {
-            return {...value, total: value.total++}           
+          if (value.code === item.code) {
+            return {...value, total: value.total++}                  
           } 
           return value;
         })
