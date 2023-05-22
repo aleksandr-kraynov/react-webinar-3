@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import './style.css';
+import { priceFormatting } from "../../utils";
 
 function Item(props){
   
@@ -17,7 +18,7 @@ function Item(props){
         {props.item.title}
       </div>
       <div className='Item-price'>
-        {props.item.price + ' ₽'}
+        {priceFormatting(props.item.price)}
       </div>
       <div className='Item-actions'>
         <button onClick={callbacks.onAddToOrder}>

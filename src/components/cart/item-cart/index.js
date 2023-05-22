@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import '../../item/style.css';
+import { priceFormatting } from "../../../utils";
 
 function ItemCart(props){
   
@@ -17,7 +18,7 @@ function ItemCart(props){
             {props.item.title}
         </div>
         <div className='Item-price'>
-            {props.item.price + ' ₽'}
+            {priceFormatting(props.item.price)}
         </div>
         <div className='Item-price'>
             {props.item.total + ' шт'}

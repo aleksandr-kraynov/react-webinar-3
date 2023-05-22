@@ -4,6 +4,7 @@ import './style.css';
 import {cn as bem} from '@bem-react/classname';
 import Head from "../head";
 import List from "../list";
+import { priceFormatting } from "../../utils";
 
 
 function Cart({orders, totalSumCart, onDeleteItem, setActive}){
@@ -21,7 +22,7 @@ function Cart({orders, totalSumCart, onDeleteItem, setActive}){
         {orders.length ? <List orders={orders} onDeleteItem={onDeleteItem} /> : <div className={cn('empty')}>Корзина пуста</div>}
       </div>      
       <div className={cn('total')}>
-        <strong>{orders.length ? (<div><span>Итого</span> {totalSumCart + ' ₽'} </div>) : ''}</strong>
+        <strong>{orders.length ? (<div><span>Итого</span> {priceFormatting(totalSumCart)} </div>) : ''}</strong>
       </div>
     </div>
   )
