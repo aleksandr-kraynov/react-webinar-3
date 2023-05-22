@@ -16,7 +16,9 @@ function App({ store }) {
 
   const list = store.getState().list; 
   const orders = store.getState().orders; 
-  const totalSumCart = store.totalSumCart   
+  const totalSumCart = store.totalSumCart 
+  
+  console.log(list, orders)
 
   const callbacks = {
     onDeleteItem: useCallback(
@@ -49,7 +51,7 @@ function App({ store }) {
     <PageLayout>
       <Head title='Магазин'/>     
       <Controls orders={orders} totalSumCart ={totalSumCart} onAdd={callbacks.onAddItem} setActive={setModalActive} />
-      <List list={list} onAddToOrder={callbacks.onAddToOrder}/>
+      <List list={list} onAddToOrder={callbacks.onAddToOrder} active={modalActive}/>
       <Modal active={modalActive}>
         <Cart orders={orders} totalSumCart ={totalSumCart} onDeleteItem={callbacks.onDeleteItem} setActive={setModalActive}/>
       </Modal>   

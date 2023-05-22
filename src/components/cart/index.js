@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import './style.css';
 import {cn as bem} from '@bem-react/classname';
 import Head from "../head";
+import List from "../list";
 
 
 function Cart({orders, totalSumCart, onDeleteItem, setActive}){
@@ -16,28 +17,9 @@ function Cart({orders, totalSumCart, onDeleteItem, setActive}){
           <button onClick={() => setActive(false)}>Закрыть</button> 
         </div>  
       </Head>      
-      <div className={cn('list List')}>
-        {orders.length ?
-        orders.map(item =>
-          <div key={item.code} className='List-item'>
-            <div className='Item'>
-              <div className='Item-code'>{item.code}</div>
-              <div className='Item-title'>
-                {item.title}
-              </div>
-              <div className='Item-price'>
-                {item.price + ' ₽'}
-              </div>
-              <div className='Item-price'>
-                {item.total + ' шт'}
-              </div>
-              <div className='Item-actions'>
-                <button onClick={() => onDeleteItem(item.code)}>Удалить</button>
-              </div>              
-            </div>                   
-          </div>
-        ): (<div className={cn('empty')}>Корзина пуста</div>)}
-      </div>
+      <div className={cn('list')}>
+        {orders.length ? <List orders={orders} onDeleteItem={onDeleteItem} /> : <div className={cn('empty')}>Корзина пуста</div>}
+      </div>      
       <div className={cn('total')}>
         <strong>{orders.length ? (<div><span>Итого</span> {totalSumCart + ' ₽'} </div>) : ''}</strong>
       </div>
