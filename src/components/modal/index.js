@@ -1,11 +1,15 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import './style.css';
+import {cn as bem} from '@bem-react/classname';
 
 function Modal({ active, children }) {
+
+  const cn = bem('Modal');
+
   return (
-    <div className={active ? 'Modal active' : 'Modal'}>
-      <div className='Modal-content' onClick={e => e.stopPropagation()}>
+    <div className={active ? cn() + ' active' : cn()}>
+      <div className={cn('content')} onClick={e => e.stopPropagation()}>
         {children}
       </div>
     </div>

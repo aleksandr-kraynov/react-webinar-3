@@ -1,9 +1,12 @@
 import React from "react";
 import PropTypes from "prop-types";
 import './style.css';
+import {cn as bem} from '@bem-react/classname';
 import { priceFormatting } from "../../utils";
 
 function Item(props){
+
+  const cn = bem('Item');
   
   const callbacks = {    
     onAddToOrder: () => {
@@ -12,15 +15,15 @@ function Item(props){
   }
 
   return (
-    <div className='Item'>
-      <div className='Item-code'>{props.item.code}</div>
-      <div className='Item-title'>
+    <div className={cn()}>
+      <div className={cn('code')}>{props.item.code}</div>
+      <div className={cn('title')}>
         {props.item.title}
       </div>
-      <div className='Item-price'>
+      <div className={cn('price')}>
         {priceFormatting(props.item.price)}
       </div>
-      <div className='Item-actions'>
+      <div className={cn('actions')}>
         <button onClick={callbacks.onAddToOrder}>
           Добавить
         </button>
