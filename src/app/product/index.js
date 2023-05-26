@@ -1,4 +1,4 @@
-import {memo, useCallback, useEffect, useState} from 'react';
+import {memo, useCallback, useEffect } from 'react';
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
@@ -9,9 +9,7 @@ import { useParams } from 'react-router';
 import Loader from '../../components/loader';
 
 
-function Product() {
-
-  const [isFetching, setIsFetching] = useState(false)
+function Product({isFetching, setIsFetching}) {
 
   const { id } = useParams()
 
@@ -22,6 +20,7 @@ function Product() {
       try {
         setIsFetching(true)
         await store.actions.product.load(id);
+        await store.actions.catalog.load();
       } catch (error) {
         console.log(error)
       } finally {
@@ -50,7 +49,13 @@ function Product() {
 
   return (
     <PageLayout>
-      <Head title={isFetching ? <Loader /> : select.data.title} onChangeLanguage={callbacks.onChangeLanguage}/>
+      <Head title=
+      {isFetching ? 
+      <Loader 
+        getTranslation={callbacks.getTranslation} 
+        language={select.language} /> : select.data.title}
+         onChangeLanguage={callbacks.onChangeLanguage}
+      />
       <BasketTool 
         onOpen={callbacks.openModalBasket} 
         amount={select.amount}
@@ -58,7 +63,18 @@ function Product() {
         getTranslation={callbacks.getTranslation} 
         language={select.language}
       />
-      {isFetching ? <h1><Loader /></h1> : <ProductDetail onAdd={callbacks.addToBasket} item={select.data}  getTranslation={callbacks.getTranslation} language={select.language}/>}      
+      {isFetching ? 
+      <h1><Loader 
+        getTranslation={callbacks.getTranslation} 
+        language={select.language} 
+      /></h1> 
+      : 
+      <ProductDetail 
+        onAdd={callbacks.addToBasket} 
+        item={select.data}  
+        getTranslation={callbacks.getTranslation} 
+        language={select.language}
+      />}      
     </PageLayout>
 
   );

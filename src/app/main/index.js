@@ -1,4 +1,4 @@
-import {memo, useCallback, useEffect} from 'react';
+import {memo, useCallback, useEffect } from 'react';
 import Item from "../../components/item";
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
@@ -7,13 +7,23 @@ import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from '../../components/pagination';
+import Loader from '../../components/loader';
 
-function Main() {   
+function Main({isFetching, setIsFetching}) {  
 
-  const store = useStore();  
+  const store = useStore();   
 
-  useEffect(() => {
-    store.actions.catalog.load();
+  useEffect(() => {    
+    (async function fetchingPage() {
+      try {
+        setIsFetching(true)        
+        await store.actions.catalog.load();
+      } catch (error) {
+        console.log(error)
+      } finally {
+        setIsFetching(false)
+      }
+    }()) 
   }, []);
 
   const select = useSelector(state => ({
@@ -60,7 +70,14 @@ function Main() {
         sum={select.sum} 
         getTranslation={callbacks.getTranslation} 
         language={select.language}/>
-      <List list={select.list} renderItem={renders.item}/>  
+      {isFetching ? 
+      <h1><Loader 
+        getTranslation={callbacks.getTranslation} 
+        language={select.language}
+      /></h1> 
+      :
+        <List list={select.list} renderItem={renders.item}/>  
+      }
       <Pagination 
         pageLimit={select.pageLimit} 
         itemOrder={select.itemOrder} 

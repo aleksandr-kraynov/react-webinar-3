@@ -1,11 +1,13 @@
-import {memo, useState} from "react";
+import {memo} from "react";
 import PropTypes from "prop-types";
 import {cn as bem} from '@bem-react/classname';
 import {numberFormat} from "../../utils";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import './style.css';
 
-function Item(props){
+function Item(props) {   
+
+  const slug = props.item._id
 
   const cn = bem('Item');
 
@@ -17,7 +19,7 @@ function Item(props){
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-        <Link to={`product/${props.item._id}`}>{props.item.title}</Link>        
+        <Link to={`product/${slug}`}>{props.item.title}</Link>        
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>

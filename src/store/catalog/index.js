@@ -11,7 +11,7 @@ class Catalog extends StoreModule {
   initState() {
     return {
       list: [],
-      pageLimit: 20,
+      pageLimit: 10,
       itemOrder: 0,
       totalPages: 0,
       currentPage: 1,

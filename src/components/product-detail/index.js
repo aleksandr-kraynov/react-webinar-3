@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
-function ProductDetail(props){
+function ProductDetail(props){ 
  
   const cn = bem('ProductDetail');
 
@@ -26,6 +26,10 @@ function ProductDetail(props){
 }
 
 ProductDetail.propTypes = { 
+  item: PropTypes.shape({
+    _id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),    
+    price: PropTypes.number
+  }).isRequired,
   onAdd: PropTypes.func,
   language: PropTypes.string,
   getTranslation: PropTypes.func

@@ -3,9 +3,13 @@ import { strings } from '../../vocabulary'
 
 class Vocabulary extends StoreModule {  
 
+  constructor(store, name) {
+    super(store, name);
+    this.vocabulary = strings
+  }
+
   initState() {
-    return {  
-        vocabulary: strings,      
+    return {              
         language: 'ru'
     }
   }
@@ -17,24 +21,8 @@ class Vocabulary extends StoreModule {
     }, 'Язык изменён');  
   }
 
-  getTranslation(string, language) {
-    if (!language) {
-      console.warn("getString, language is undefined");
-      return "";
-    }
-    if (!strings[language][string]) {
-      const alternativeLanguage = language === "en" ? "ar" : "en";
-      if (!strings[alternativeLanguage][string]) {
-        console.warn(
-          "getString, string not found in any language. ID: ",
-          string,
-        );
-        return "";
-      }
-      console.warn(`getString, string not found in ${language}. ID: `, string);
-      return strings[alternativeLanguage][string];
-    }
-    return strings[language][string];
+  getTranslation(string, language) {    
+    return this.vocabulary[language][string];
   };
 
 }
