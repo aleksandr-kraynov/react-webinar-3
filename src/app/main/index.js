@@ -6,10 +6,11 @@ import BasketTool from "../../components/basket-tool";
 import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
+import Pagination from '../../components/pagination';
 
-function Main() {
+function Main() {   
 
-  const store = useStore();
+  const store = useStore();  
 
   useEffect(() => {
     store.actions.catalog.load();
@@ -17,31 +18,60 @@ function Main() {
 
   const select = useSelector(state => ({
     list: state.catalog.list,
+    totalPages: state.catalog.totalPages,
+    pageLimit: state.catalog.pageLimit,
+    itemOrder: state.catalog.itemOrder,    
+    currentPage: state.catalog.currentPage,
+    pageNeighbours: state.catalog.pageNeighbours,   
     amount: state.basket.amount,
-    sum: state.basket.sum
-  }));
+    sum: state.basket.sum,
+    language: state.vocabulary.language
+  }));   
 
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
-    openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),    
+    // Переключение страницы
+    selectedPage: useCallback(page => store.actions.catalog.selectedPage(page), [store]),
+    // Получение номеров страниц
+    fetchNumbersPage: useCallback(totalPagesCount => store.actions.catalog.fetchNumbersPage(totalPagesCount), [store]),
+    // Генерация ключей
+    generateCode: useCallback(() => store.actions.catalog.generateCode(), [store]),    
+    // Изменение языка
+    onChangeLanguage: useCallback((language) => store.actions.vocabulary.onChangeLanguage(language), [store]),
+    // Перевод
+    getTranslation: useCallback((string, language) => store.actions.vocabulary.getTranslation(string, language), [store])
   }
 
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket}/>
-    }, [callbacks.addToBasket]),
-  };
+      return <Item item={item} onAdd={callbacks.addToBasket} getTranslation={callbacks.getTranslation} language={select.language}/>
+    }, [callbacks.addToBasket, select.language]),
+  }; 
 
   return (
     <PageLayout>
-      <Head title='Магазин'/>
-      <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
-                  sum={select.sum}/>
-      <List list={select.list} renderItem={renders.item}/>
+      <Head title={callbacks.getTranslation('SHOP', select.language)} onChangeLanguage={callbacks.onChangeLanguage}/>
+      <BasketTool 
+        onOpen={callbacks.openModalBasket} 
+        amount={select.amount}
+        sum={select.sum} 
+        getTranslation={callbacks.getTranslation} 
+        language={select.language}/>
+      <List list={select.list} renderItem={renders.item}/>  
+      <Pagination 
+        pageLimit={select.pageLimit} 
+        itemOrder={select.itemOrder} 
+        totalPages={select.totalPages} 
+        currentPage={select.currentPage} 
+        pageNeighbours={select.pageNeighbours} 
+        selectedPage={callbacks.selectedPage}
+        fetchNumbersPage={callbacks.fetchNumbersPage}       
+        generateCode={callbacks.generateCode}
+      />
     </PageLayout>
-
   );
 }
 
