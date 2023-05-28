@@ -9,7 +9,7 @@ import { useParams } from 'react-router';
 import Loader from '../../components/loader';
 
 
-function Product({isFetching, setIsFetching}) {
+function Product({isFetching, setIsFetching }) {
 
   const { id } = useParams()
 
@@ -19,8 +19,7 @@ function Product({isFetching, setIsFetching}) {
     (async function fetchingProduct() {
       try {
         setIsFetching(true)
-        await store.actions.product.load(id);
-        await store.actions.catalog.load();
+        await store.actions.product.load(id);     
       } catch (error) {
         console.log(error)
       } finally {
@@ -45,7 +44,7 @@ function Product({isFetching, setIsFetching}) {
     onChangeLanguage: useCallback((language) => store.actions.vocabulary.onChangeLanguage(language), [store]),
     // Перевод
     getTranslation: useCallback((string, language) => store.actions.vocabulary.getTranslation(string, language), [store])
-  }  
+  }   
 
   return (
     <PageLayout>

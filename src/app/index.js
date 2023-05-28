@@ -14,13 +14,15 @@ function App() {
 
   const [isFetching, setIsFetching] = useState(false)
 
+  const pathProduct = 'product'
+
   const activeModal = useSelector(state => state.modals.name);
 
   return (
     <BrowserRouter>         
       <Routes>
-        <Route path='/' element={<Main isFetching={isFetching} setIsFetching={setIsFetching} />} />
-        <Route path='/product/:id' element={<Product isFetching={isFetching} setIsFetching={setIsFetching} />} />
+        <Route path='/' element={<Main isFetching={isFetching} setIsFetching={setIsFetching} pathProduct={pathProduct} />} />
+        <Route path={`${pathProduct}/:id`} element={<Product isFetching={isFetching} setIsFetching={setIsFetching} />} />
       </Routes>        
       {activeModal === 'basket' && <Basket/>}      
     </BrowserRouter>

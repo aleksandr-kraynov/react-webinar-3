@@ -9,22 +9,9 @@ import useSelector from "../../store/use-selector";
 import Pagination from '../../components/pagination';
 import Loader from '../../components/loader';
 
-function Main({isFetching, setIsFetching}) {  
+function Main({isFetching, setIsFetching, pathProduct}) {   
 
-  const store = useStore();   
-
-  useEffect(() => {    
-    (async function fetchingPage() {
-      try {
-        setIsFetching(true)        
-        await store.actions.catalog.load();
-      } catch (error) {
-        console.log(error)
-      } finally {
-        setIsFetching(false)
-      }
-    }()) 
-  }, []);
+  const store = useStore();      
 
   const select = useSelector(state => ({
     list: state.catalog.list,
@@ -55,9 +42,22 @@ function Main({isFetching, setIsFetching}) {
     getTranslation: useCallback((string, language) => store.actions.vocabulary.getTranslation(string, language), [store])
   }
 
+  useEffect(() => {    
+    (async function fetchingPage() {
+      try {
+        setIsFetching(true)        
+        await store.actions.catalog.load();      
+      } catch (error) {
+        console.log(error)
+      } finally {
+        setIsFetching(false)
+      }
+    }()) 
+  }, [select.currentPage]); 
+
   const renders = {
     item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket} getTranslation={callbacks.getTranslation} language={select.language}/>
+      return <Item item={item} onAdd={callbacks.addToBasket} getTranslation={callbacks.getTranslation} language={select.language} pathProduct={pathProduct}/>
     }, [callbacks.addToBasket, select.language]),
   }; 
 
@@ -86,7 +86,7 @@ function Main({isFetching, setIsFetching}) {
         pageNeighbours={select.pageNeighbours} 
         selectedPage={callbacks.selectedPage}
         fetchNumbersPage={callbacks.fetchNumbersPage}       
-        generateCode={callbacks.generateCode}
+        generateCode={callbacks.generateCode}      
       />
     </PageLayout>
   );

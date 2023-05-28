@@ -5,9 +5,9 @@ import {numberFormat} from "../../utils";
 import { Link, useLocation } from "react-router-dom";
 import './style.css';
 
-function Item(props) {   
+function Item(props) {     
 
-  const slug = props.item._id
+  const id = props.item._id
 
   const cn = bem('Item');
 
@@ -19,7 +19,7 @@ function Item(props) {
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
       <div className={cn('title')}>
-        <Link to={`product/${slug}`}>{props.item.title}</Link>        
+        <Link to={`${props.pathProduct}/${id}`}>{props.item.title}</Link>        
       </div>
       <div className={cn('actions')}>
         <div className={cn('price')}>{numberFormat(props.item.price)} ₽</div>
@@ -35,6 +35,7 @@ Item.propTypes = {
     title: PropTypes.string,
     price: PropTypes.number
   }).isRequired,
+  pathProduct: PropTypes.string,
   onAdd: PropTypes.func,
   language: PropTypes.string,
   getTranslation: PropTypes.func
