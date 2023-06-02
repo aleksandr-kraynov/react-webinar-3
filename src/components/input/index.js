@@ -13,7 +13,7 @@ function Input(props) {
   const onChangeDebounce = useCallback(
     debounce(value => props.onChange(value, props.name), 600),
     [props.onChange, props.name]
-  );
+  );  
 
   // Обработчик изменений в поле
   const onChange = (event) => {
