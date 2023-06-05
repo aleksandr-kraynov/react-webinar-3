@@ -17,19 +17,12 @@ function ProfileDetail({userData}) {
   )
 }
 
-// ProfileDetail.propTypes = {
-//   value: PropTypes.string,
-//   name: PropTypes.string,
-//   type: PropTypes.string,
-//   placeholder: PropTypes.string,
-//   onChange: PropTypes.func,
-//   theme: PropTypes.string,
-// }
-
-// ProfileDetail.defaultProps = {
-//   onChange: () => {},
-//   type: 'text',
-//   theme: ''
-// }
+ProfileDetail.propTypes = {
+  userData: PropTypes.shape({   
+    name: PropTypes.string,
+    phone: PropTypes.string,
+    email: PropTypes.string,
+  }).isRequired,
+}
 
 export default memo(ProfileDetail);

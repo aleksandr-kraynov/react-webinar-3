@@ -15,6 +15,12 @@
     width: fit-content;
 }
 
+.AuthForm-input {
+    box-sizing: border-box;
+    height: 26px;    
+    min-width: 203px;
+}
+
 .AuthForm-button {
     width: fit-content;
 }

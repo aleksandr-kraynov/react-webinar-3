@@ -1,6 +1,5 @@
 import StoreModule from "../module";
 
-
 class UserState extends StoreModule {
 
   initState() {
@@ -25,7 +24,7 @@ class UserState extends StoreModule {
             body: JSON.stringify(data),
         }); 
         
-        const json = await response.json();
+        const json = await response.json();       
 
         if (response.ok) {       
                       
@@ -43,14 +42,14 @@ class UserState extends StoreModule {
         } else {           
             this.setState({
                 ...this.getState(),
-                error: json.error.message,        
+                error: json.error.data.issues[0].message,        
             });
         }
 
     } catch (error) {
         this.setState({
             ...this.getState(),
-            error: error.message,        
+            error: error.data.issues[0].message,        
         });
     } finally {
         this.setState({   
@@ -62,7 +61,8 @@ class UserState extends StoreModule {
 
   async authorizationСheck() {   
     this.setState({
-        ...this.getState(),      
+        ...this.getState(),
+        error: null,
         waiting: true
     });    
 
@@ -96,7 +96,7 @@ class UserState extends StoreModule {
     } catch (error) {
         this.setState({
             ...this.getState(),
-            error: error.message,        
+            error: error.data.issues[0].message,        
         });
     } finally {
         this.setState({   
@@ -136,7 +136,7 @@ class UserState extends StoreModule {
     } catch (error) {
         this.setState({
             ...this.getState(),
-            error: error.message,        
+            error: error.data.issues[0].message,        
         });
     } finally {
         this.setState({   

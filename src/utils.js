@@ -47,8 +47,8 @@ export function categoryTree(items) {
   function addDepth(arr, depth = 0) {
     arr.forEach(obj => {
       obj.depth = depth
-      let prefix = '-'        
-      listTreeWithDepth.push({...obj, title: `${prefix.repeat(obj.depth)} ${obj.title}`})
+      let prefix = '- '        
+      listTreeWithDepth.push({...obj, title: `${prefix.repeat(obj.depth)}${obj.title}`})
       addDepth(obj.children, depth + 1)
     })   
   }

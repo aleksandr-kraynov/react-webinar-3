@@ -8,6 +8,7 @@ import LocaleSelect from "../../containers/locale-select";
 import Navigation from "../../containers/navigation";
 import AuthControl from '../../containers/auth-control';
 import AuthForm from '../../components/auth-form';
+import { useHistory, useNavigate } from 'react-router-dom';
 
 
 function AuthPage() {
@@ -16,7 +17,10 @@ function AuthPage() {
 
   const store = useStore(); 
 
+  const navigate = useNavigate()  
+
   const select = useSelector(state => ({    
+    isAuth: state.user.isAuth,
     error: state.user.error,  
   }));
 
@@ -24,8 +28,12 @@ function AuthPage() {
     // Авторизация
     login: useCallback((value) => {
       store.actions.user.login(value)
-      setValue({login: '', password: ''})
+      setValue({login: '', password: ''})          
     }, [store]),   
+  }
+
+  if (select.isAuth) {
+    navigate(-1) 
   }
   
   const {t} = useTranslate();

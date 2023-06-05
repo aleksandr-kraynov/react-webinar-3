@@ -16,18 +16,15 @@ function AuthControl() {
   const select = useSelector(state => ({   
     userName:  state.user.userData.name,
     isAuth: state.user.isAuth, 
+    error: state.user.error,
     waiting: state.user.waiting 
   }));
-
-  useEffect(() => {
-    if (!select.isAuth) {
-      store.actions.user.authorizationСheck();  
-    }
-  }, []);
-  
+ 
   const callbacks = {
     // Переход на страницу авторизации
-    handleOnClick: useCallback(() => navigate('/login'), [store]),  
+    handleOnClick: useCallback(() => {     
+      navigate('/login')      
+    }, [store]),      
     // Выход из аккаунта
     logout:  useCallback(() => store.actions.user.logout(), [store]),   
   }  
