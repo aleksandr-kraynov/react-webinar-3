@@ -9,7 +9,6 @@ import LocaleSelect from "../../containers/locale-select";
 import Navigation from "../../containers/navigation";
 import AuthControl from '../../containers/auth-control';
 import ProfileDetail from '../../components/profile-detail';
-import AuthCheck from '../../containers/auth-check';
 
 function ProfilePage() {
 
@@ -27,17 +26,15 @@ function ProfilePage() {
   
   const {t} = useTranslate();
 
-  return (
-    <AuthCheck isAuth={select.isAuth}>
-      <PageLayout>
-        <AuthControl />
-        <Head title={t('title')}>
-          <LocaleSelect/>
-        </Head>   
-        <Navigation />  
-        <ProfileDetail userData={select.userData}/>   
-      </PageLayout>
-    </AuthCheck>    
+  return (   
+    <PageLayout>
+      <AuthControl />
+      <Head title={t('title')}>
+        <LocaleSelect/>
+      </Head>   
+      <Navigation />  
+      <ProfileDetail userData={select.userData}/>   
+    </PageLayout>  
   );
 }
 

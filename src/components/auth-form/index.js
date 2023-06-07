@@ -1,4 +1,4 @@
-import {memo, useCallback, useState} from 'react';
+import {memo, useCallback, useEffect, useState} from 'react';
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import PropTypes from "prop-types";
@@ -6,7 +6,7 @@ import {cn as bem} from '@bem-react/classname';
 import './style.css';
 
 function AuthForm(props) { 
-
+ 
   const cn = bem('AuthForm');
 
   return (  
@@ -37,7 +37,7 @@ function AuthForm(props) {
 }
 
 AuthForm.propTypes = {
-  value: PropTypes.string,
+  value: PropTypes.object,
   setValue: PropTypes.func,
   error: PropTypes.string,
   login: PropTypes.func

@@ -1,4 +1,4 @@
-import {memo, useCallback, useState} from 'react';
+import {memo, useCallback, useEffect, useState} from 'react';
 import useTranslate from "../../hooks/use-translate";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
@@ -8,16 +8,16 @@ import LocaleSelect from "../../containers/locale-select";
 import Navigation from "../../containers/navigation";
 import AuthControl from '../../containers/auth-control';
 import AuthForm from '../../components/auth-form';
-import { useHistory, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
 function AuthPage() {
 
-  const [value, setValue] = useState({login: '', password: ''})
+  const [value, setValue] = useState({login: '', password: ''}) 
 
   const store = useStore(); 
 
-  const navigate = useNavigate()  
+  const navigate = useNavigate() 
 
   const select = useSelector(state => ({    
     isAuth: state.user.isAuth,
@@ -35,6 +35,10 @@ function AuthPage() {
   if (select.isAuth) {
     navigate(-1) 
   }
+
+  useEffect(() => {
+    store.actions.user.resetError()
+  }, [])
   
   const {t} = useTranslate();
 

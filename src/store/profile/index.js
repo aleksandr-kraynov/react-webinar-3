@@ -3,8 +3,7 @@ import StoreModule from "../module";
 class ProfileState extends StoreModule {
 
   initState() {
-    return {
-      isAuth: false,
+    return {   
       userData: {},
       waiting: false,
       error: null
@@ -53,7 +52,7 @@ class ProfileState extends StoreModule {
     } finally {
         this.setState({   
             ...this.getState(),         
-            waiting: false,
+            waiting: false          
         });
     }   
   }

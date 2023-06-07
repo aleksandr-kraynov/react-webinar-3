@@ -7,6 +7,7 @@ import Basket from "./basket";
 import Article from "./article";
 import AuthPage from './auth-page';
 import ProfilePage from './profile-page';
+import AuthCheck from '../containers/auth-check';
 
 /**
  * Приложение
@@ -33,11 +34,11 @@ function App() {
 
   return (
     <>
-      <Routes>
+      <Routes>        
         <Route path={''} element={<Main/>}/>
         <Route path={'/articles/:id'} element={<Article/>}/>
-        <Route path={'/login'} element={<AuthPage/>}/>
-        <Route path={'/profile'} element={<ProfilePage />}/>
+        <Route path={'/login'} element={<AuthPage/>}/>        
+        <Route path={'/profile'} element={<AuthCheck />}/>          
       </Routes>
 
       {activeModal === 'basket' && <Basket/>}

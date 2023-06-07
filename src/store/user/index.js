@@ -145,6 +145,13 @@ class UserState extends StoreModule {
         });
     }
   }
+
+  async resetError() {
+    this.setState({
+        ...this.getState(),      
+        error: null
+    });    
+  }
 }
 
 export default UserState;

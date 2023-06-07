@@ -1,18 +1,26 @@
 import {memo} from 'react';
 import PropTypes from 'prop-types';
+import useSelector from "../../hooks/use-selector";
 import { Navigate } from 'react-router-dom';
+import ProfilePage from '../../app/profile-page';
 
-function AuthCheck({isAuth, children}) {   
+function AuthCheck() {  
+  
+  const select = useSelector(state => ({   
+    userName:  state.user.userData.name,
+    isAuth: state.user.isAuth, 
+    error: state.user.error,
+    waiting: state.user.waiting 
+  }));
 
-  if (!isAuth) {
+  if (!select.isAuth) {
     return <Navigate to='/login' />   
   } else {
-    return children
+    return <ProfilePage />
   }  
 }
 
 AuthCheck.propTypes = {
-  isAuth: PropTypes.bool.isRequired,
   children: PropTypes.node,
 };
 
